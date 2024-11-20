@@ -1,0 +1,76 @@
+JDBC – to zbiór interfejsów (bez implementacji);
+Sterownik JDBC – to implementacja standardu JDBC dla konkretnej bazy danych lub rodziny baz danych;
+Nie ma sterowników uniwersalnych, konkretne sterowniki są dostępne na zasadzie Open Source. Sterowniki znajdują się na
+ stronie producenta baz danych. Warto używać najnowszej, stabilnej wersji sterownika
+Co potrzebujemy?:
+•	 Działającą bazę danych;
+•	Sterownik JDBC dedykowany do tej bazy danych;
+•	Odpowiednia konfiguracja bazy danych – uprawnienia do nawiązania połączenia;
+•	Szczegóły serwera baz danych: IP lub nazwa domenowa (host) oraz port, na którym nasłuchuje dana baza danych;
+•	Dane dostępowe: nazwę użytkownika oraz jego hasło;
+
+
+
+Pula połączeń DBCP (opcjonalna):
+Można skorzystać z biblioteki Apache Commons DBCP (Data Base Connection Pool). Biblioteka pozwala na pobieranie połączeń z Puli Połączeń,
+która pozwala na wielokrotne wykorzystanie tego samego połączenia – skutkuje to poprawą wydajności oraz zwiększeniem reutylizacji zasobów.
+
+Podstawowe interfejsy JDBC:
+•	Connection – reprezentuje połączenie z bazą danych;
+•	Statement – reprezentuje operację na bazie danych, umożliwia ich wykonywanie, a następnie pobieranie i zapisywanie danych
+oraz wykonywanie instrukcji SQL;
+•	PreparedStatement – reprezentuje parametryzowaną  operację na bazie danych, umożliwia ich wykonywanie, a następnie pobieranie i
+ zapisywanie danych oraz wykonywanie parametryzowanych instrukcji SQL;
+•	ResultSet – reprezentuje zbiór wyników pobieranych z bazy danych (wycinek tabeli), będących wynikiem wykonania pewnego zapytania do bazy danych;
+
+
+PreparedStatement:
+Interfejs pozwalający na wykonywanie parametryzowanych zapytań – zapytania są rekompilowane, co pozwala zwiększyć odporność na ataki „sql injection”.
+ Dodatkowo te zapytania mogą być zapisywanie w cache po stronie bazy danych co pozwala na zwiększenie wydajności.
+
+Zamykanie zasobów:
+!!!Zawsze najpierw powinniśmy zamykać ResultSet oraz Statement, a na końcu Connection!!!
+
+
+Transakcje:
+Transakcja to zbiór operacji, które zmieniają stan systemu. Wykonanie wyłącznie wszystkich kroków wchodzących w skład transakcji może być
+uznane za sukces (z ang. commit). Jeśli któryś z kroków się nie powiedzie, należy wycofać (z ang. rollback) wszystkie zmiany dokonane w ramach danej transakcji.
+ Książkowym przykładem transakcji może być transakcja bankowa jaką jest przelew. Muszą tu zostać dokonane dwie operacje – obniżenie konta nadawcy oraz podbicie
+  sumy konta odbiorcy. W przypadku wystąpienia błędu żadna z tych operacji nie może być zatwierdzona.
+Zasady ACID (anagram) to zbiór zasad które opisują transakcję:
+•	Atomowość – wykonanie wszystkich kroków wchodzących w skład transakcji decyduje o jej sukcesie;
+•	Spójność – stan bazy danych zawsze przedstawia stan przed lub po transakcji;
+•	Izolacja – transakcja jest odizolowana od innych transakcji, działa niezależnie od pozostałych;
+•	Trwałość – w przypadku awarii systemu bazodanowego, transakcja albo wykonana jest w całości albo wcale;
+
+
+
+Podsumowanie:
+Praca domowa_1:
+Napisz program do zarządzania pracownikami, uzywajac PreparedStatement oraz transakcji, oraz DBCP:
+Pracownik (imię, nazwisko, stanowisko(enum(stażysta, junior dev, mid dev, senior dev, lead dev )), pensja, zwolniony(boolean))
+Napisz serwis, który będzie posiadał metody:
+- zatrudniająca pracownika,
+-zwalniającą pracownika (soft delete),
+- podyższającą pensję
+-awansującą pracownika;
+- wyszukującą pracownika po id.
+Oczywiście wszelkie zmiany muszą zachodzić w bazie danych.
+Możesz stworzyć sobie generator pracowników, który wygeneruje kilku pracowników i ich zainsertuje do bazy.
+
+Praca domowa 2:
+Poprawki w tescie
+
+Praca domowa 3:
+Nauka podstawowych komend linuxa/basha:
+cd, ll, ls, cat, grep, rm, mkdir, touch, vi
+Mozesz postawic ubuntu na dockerze
+
+Praca domowa 4:
+CallableStatement:
+https://www.journaldev.com/2502/callablestatement-in-java-example
+Batch insert:
+ https://www.journaldev.com/2494/jdbc-batch-insert-update-mysql-oracle
+
+
+

@@ -1,0 +1,11 @@
+Praca domowa_1:
+Napisz program do zarządzania pracownikami, uzywajac PreparedStatement oraz transakcji, oraz DBCP:
+Pracownik (imię, nazwisko, stanowisko(enum(stażysta, junior dev, mid dev, senior dev, lead dev )), pensja, zwolniony(boolean))
+Napisz serwis, który będzie posiadał metody:
+- zatrudniająca pracownika,
+-zwalniającą pracownika (soft delete),
+- podyższającą pensję
+-awansującą pracownika;
+- wyszukującą pracownika po id.
+Oczywiście wszelkie zmiany muszą zachodzić w bazie danych.
+Możesz stworzyć sobie generator pracowników, który wygeneruje kilku pracowników i ich zainsertuje do bazy.
